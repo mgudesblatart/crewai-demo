@@ -21,6 +21,46 @@ class JIRATools():
         res = apiConnection.getresponse()
         return res
 
+    @tool("Update JIRA ticket")
+    def update_ticket(issueKey: str, title: str, description: str) -> str:
+        """Used to update the details for a JIRA ticket"""
+        print("+++++++++++++++++++++ UPDATING A TICKET ++++++++++++++++++++++++++")
+        print(issueKey)
+        apiConnection = http.client.HTTPSConnection("connorvalan.atlassian.net")
+        payload = json.dumps({
+          "fields": {
+            "project": {
+              "key": "KAN"
+            },
+            "summary": title,
+            "description": {
+              "type": "doc",
+              "version": 1,
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": description
+                    }
+                  ]
+                }
+              ]
+            },
+            "issuetype": {
+              "name": "Task"
+            }
+          }
+        })
+        headers = {
+          'Authorization': JIRA_AUTH_KEY,
+          'Content-Type': 'application/json'
+        }
+        apiConnection.request("PUT", "/rest/api/3/issue/{issueKey}", payload, headers)
+        res = apiConnection.getresponse()
+        return res
+
     @tool("Create JIRA ticket")
     def create_ticket(title: str, description: str) -> str:
         """Used to create tickets in JIRA"""
