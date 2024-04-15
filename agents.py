@@ -21,11 +21,9 @@ class Agents:
             """
             ),
             goal=dedent(
-                f"""Review the requirements set out by the PO for the feature.
-                Create a "Jira Story Ticket" to expand upon the feature request.
-                Utilize best practices to define the feature and all of the Acceptance Criteria.
-                Work with the Tech Lead to ensure feasibility of the feature and refine Acceptance Criteria for Developer understanding.
-                The template for the story will be provided in the Best Practices document."""
+                f"""The goal of a business analyst is to understand an organization's business needs and determine solutions that will help improve processes, systems, and overall effectiveness.
+                A business analyst acts as a liaison between stakeholders and technical teams, gathering requirements, evaluating options, and helping implement changes that further strategic objectives and enhance business performance.
+                """
             ),
             tools=[],
             allow_delegation=True,
@@ -46,9 +44,9 @@ class Agents:
             """
             ),
             goal=dedent(
-                f"""Review the requirements set out by the Business Analyst in the "Jira Story Ticket" for development feasibility.
-                Identify steps for implementation.
-                Append technical thoughts and details onto the "Jira Story Ticket" that will be communicated to the development team."""
+                f"""
+                The goal of a technical lead is to oversee technical aspects of a project or product and guide the development team.
+                As both an individual contributor and manager, a technical lead aims to help the team deliver high-quality code efficiently through technical leadership, mentorship, and ensuring alignment with objectives."""
             ),
             tools=[],
             allow_delegation=True,
@@ -68,10 +66,8 @@ class Agents:
             """
             ),
             goal=dedent(
-                f"""Review the business requirements and development steps to create a step by step Testing Plan.
-                The testing plan will ensure that the code that is produced by the development team satisfies the requirements laid out in the "Jira Story Ticket".
-                The testing plan will also identify edge cases to ensure that the full gamut of user experience is accounted for.
-                The Testing Plan steps will be broken down into individual "Sub Tasks", and added to the "Jira Story Ticket".
+                f"""
+                The goal of a quality assurance team member within an application-owning Agile team is to ensure the delivery of high-quality software by testing and validating features, identifying defects, and collaborating with developers and stakeholders to maintain and improve product quality throughout the development lifecycle
                 """
             ),
             tools=[],
