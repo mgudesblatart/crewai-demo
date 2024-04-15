@@ -39,6 +39,7 @@ class Tasks:
       """
             ),
             agent=agent,
+            context=[self.identify_gather_requirements_task]
         )
 
     def define_story_task(self, agent):
@@ -53,6 +54,7 @@ class Tasks:
       """
             ),
             agent=agent,
+            context=[self.refine_requirements_feasability_task]
         )
 
     def define_execution_plan(self, agent):
@@ -65,6 +67,7 @@ class Tasks:
       """
             ),
             agent=agent,
+            context=[self.refine_requirements_feasability_task]
         )
 
     def define_testing_plan(self, agent):
@@ -85,4 +88,5 @@ class Tasks:
       """
             ),
             agent=agent,
+            context=[self.refine_requirements_feasability_task]
         )
