@@ -33,11 +33,11 @@ class DevelopmentCrew:
         tech_lead_agent = agents.tech_lead_agent()
         qa_engineer_agent = agents.qa_engineeer_agent()
 
-        identify_gather_requirements_task = tasks.identify_gather_requirements_task(self.user_requirements)
-        refine_requirements_feasability_task = tasks.refine_requirements_feasability_task()
-        define_story_task = tasks.define_story_task()
-        define_execution_plan = tasks.define_execution_plan()
-        define_testing_plan = tasks.define_testing_plan()
+        identify_gather_requirements_task = tasks.identify_gather_requirements_task(business_analyst_agent, self.user_requirements)
+        refine_requirements_feasability_task = tasks.refine_requirements_feasability_task(tech_lead_agent,identify_gather_requirements_task)
+        define_story_task = tasks.define_story_task(business_analyst_agent, refine_requirements_feasability_task)
+        define_execution_plan = tasks.define_execution_plan(tech_lead_agent, refine_requirements_feasability_task)
+        define_testing_plan = tasks.define_testing_plan(qa_engineer_agent, refine_requirements_feasability_task)
 
         crew = Crew(
             agents=[business_analyst_agent, tech_lead_agent, qa_engineer_agent],

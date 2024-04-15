@@ -18,11 +18,12 @@ class Tasks:
         This feature has a large impact on the organization's success. Doing a good job here will lead to promotions and accolades for the team.
       """
             ),
+            expected_output='Jira Ticket ID',
             agent=agent,
             human_input=True,
         )
 
-    def refine_requirements_feasability_task(self, agent):
+    def refine_requirements_feasability_task(self, agent, context_task):
         return Task(
             description=dedent(
                 f"""
@@ -38,11 +39,12 @@ class Tasks:
         Ensuring the work-life balance of your developers is important to consider against the impact of the work to the organization as a whole.
       """
             ),
+            expected_ouput="Jira Ticket ID",
             agent=agent,
-            context=[self.identify_gather_requirements_task]
+            context=[context_task]
         )
 
-    def define_story_task(self, agent):
+    def define_story_task(self, agent, context_task):
         return Task(
             description=dedent(
                 f"""
@@ -53,11 +55,12 @@ class Tasks:
         Clean, legible, and actionable Acceptance Criteria reflect well upon your performance.
       """
             ),
+            expected_ouput="Jira Ticket ID",
             agent=agent,
-            context=[self.refine_requirements_feasability_task]
+            context=[context_task]
         )
 
-    def define_execution_plan(self, agent):
+    def define_execution_plan(self, agent, context_task):
         return Task(
             description=dedent(
                 f"""
@@ -66,11 +69,12 @@ class Tasks:
         Ensure that each step of the technical execution plan has a rough estimate of delivery time.
       """
             ),
+            expected_ouput="Jira Ticket ID",
             agent=agent,
-            context=[self.refine_requirements_feasability_task]
+            context=[context_task]
         )
 
-    def define_testing_plan(self, agent):
+    def define_testing_plan(self, agent, context_task):
         return Task(
             description=dedent(
                 f"""
@@ -87,6 +91,7 @@ class Tasks:
         For every bug you find, you get to brag to the tech lead for not having addressed it.
       """
             ),
+            expected_ouput="Jira Ticket ID",
             agent=agent,
-            context=[self.refine_requirements_feasability_task]
+            context=[context_task]
         )
