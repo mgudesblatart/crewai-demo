@@ -4,7 +4,6 @@ import os
 import http.client
 from langchain.tools import tool
 
-
 class SearchTools():
 
   @tool("Search the internet")
