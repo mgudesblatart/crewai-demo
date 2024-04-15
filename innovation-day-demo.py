@@ -48,10 +48,10 @@ class DevelopmentCrew:
                 define_execution_plan,
                 define_testing_plan,
             ],
-            process=Process.hierarchical,
-            memory=True,
-            cache=True,
-            manager_llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7),
+            process=Process.sequential,
+            memory=False,
+            cache=False,
+            # manager_llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7),
             verbose=1,  # You can set it to 1 or 2 to different logging levels
         )
 
