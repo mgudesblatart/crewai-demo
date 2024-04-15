@@ -1,0 +1,1 @@
+We need a webpage for users to input their personal information when creating a new account. The form should include Name, Address, and Contact information.

@@ -1,33 +1,38 @@
 from textwrap import dedent
 from crewai import Task
-
+from tools.jira_tools import JIRATools
 
 class Tasks:
+    def __init__(self):
+        self.jira_tools = JIRATools()
+
+
     def identify_gather_requirements_task(self, agent, user_requirements):
         return Task(
             description=dedent(
                 f"""\
         Based on the given {user_requirements}, collaborate with the rest of the team to understand and assess any gaps in understanding.
-        Create a "Jira Story Ticket" to expand upon the feature request.
         Utilize best practices to define the feature and all of the Acceptance Criteria.
         Work with the Tech Lead to ensure feasibility of the feature and refine Acceptance Criteria for Developer understanding.
         The template for the story will be provided in the Best Practices document.
         Query the user to further develop a holistic understanding of the requirements for the feature, including deadlines. Output a first draft of the "Jira Story Ticket". Save it to Jira.
-        Remember the Jira Ticket ID.
+
+        Create a "Jira Ticket" to expand upon the feature request.
 
         This feature has a large impact on the organization's success. Doing a good job here will lead to promotions and accolades for the team.
       """
             ),
-            expected_output="Jira Ticket ID",
+            expected_output="The key from the Jira API",
             agent=agent,
             human_input=True,
+            tools=[self.jira_tools.create_ticket],
         )
 
     def refine_requirements_feasability_task(self, agent, context_task):
         return Task(
             description=dedent(
                 f"""\
-        Review the requirements set out by the Business Analyst in the "Jira Story Ticket" for development feasibility.
+        Review the requirements set out by the Business Analyst in the "Jira Ticket" for development feasibility.
         Identify steps for implementation.
         Append technical thoughts and details onto the "Jira Story Ticket" that will be communicated to the development team.
         Add additional notes/challenges based on experience handling similar features in the past.
@@ -39,39 +44,42 @@ class Tasks:
         Ensuring the work-life balance of your developers is important to consider against the impact of the work to the organization as a whole.
       """
             ),
-            expected_output="Jira Ticket ID",
+            expected_output="The key from the Jira API",
             agent=agent,
             context=[context_task],
+            tools=[self.jira_tools.update_ticket],
         )
 
     def define_story_task(self, agent, context_task):
         return Task(
             description=dedent(
                 f"""\
-        Now that the Tech Lead has had a say on the "Jira Story Ticket", come up with a final draft of the story.
+        Now that the Tech Lead has had a say on the "Jira Ticket", come up with a final draft of the story.
         Use best practices for BDD and the user story template.
         Save the final draft of the story to Jira.
 
         Clean, legible, and actionable Acceptance Criteria reflect well upon your performance.
       """
             ),
-            expected_output="Jira Ticket ID",
+            expected_output="The key from the Jira API",
             agent=agent,
             context=[context_task],
+            tools=[self.jira_tools.update_ticket],
         )
 
     def define_execution_plan(self, agent, context_task):
         return Task(
             description=dedent(
                 f"""\
-        Come up with the development steps required to achieve the Acceptance Criteria outlined in the "Jira Story Ticket".
+        Come up with the development steps required to achieve the Acceptance Criteria outlined in the "Jira Ticket".
         Update the ticket in Jira in the "Technical Details" section.
         Ensure that each step of the technical execution plan has a rough estimate of delivery time.
       """
             ),
-            expected_output="Jira Ticket ID",
+            expected_output="The key from the Jira API",
             agent=agent,
             context=[context_task],
+            tools=[self.jira_tools.update_ticket],
         )
 
     def define_testing_plan(self, agent, context_task):
@@ -85,13 +93,14 @@ class Tasks:
         The Testing Plan steps will be broken down into individual "Sub Tasks", and added to the "Jira Story Ticket".
         Include additional tests for User edge cases to cover unconsidered user inputs and interactions.
         Consider the unhappy paths to ensure that those are tested as well.
-        Update the "Jira Story Ticket" with the testing plan in the "Testing Plan" section.
+        Update the "Jira Ticket" with the testing plan in the "Testing Plan" section.
         Create subtasks for each step in the testing plan.
 
         For every bug you find, you get to brag to the tech lead for not having addressed it.
       """
             ),
-            expected_output="Jira Ticket ID",
+            expected_output="The key from the Jira API",
             agent=agent,
             context=[context_task],
+            tools=[self.jira_tools.update_ticket, self.jira_tools.create_subtask],
         )
