@@ -17,7 +17,7 @@ class JIRATools():
           'Authorization': JIRA_AUTH_KEY,
           'Content-Type': 'application/json'
         }
-        apiConnection.request("GET", "/rest/api/3/issue/{issueKey}", headers)
+        apiConnection.request("GET", "/rest/api/3/issue/"+str(issueKey), headers)
         res = apiConnection.getresponse()
         return res
 
