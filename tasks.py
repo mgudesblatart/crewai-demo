@@ -2,7 +2,7 @@ from textwrap import dedent
 from crewai import Task
 
 
-class TestTask:
+class Tasks:
     def identify_gather_requirements_task(self, agent, user_requirements):
         return Task(
             description=dedent(
