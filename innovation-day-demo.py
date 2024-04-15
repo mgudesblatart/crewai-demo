@@ -35,8 +35,8 @@ class DevelopmentCrew:
 
         identify_gather_requirements_task = tasks.identify_gather_requirements_task(business_analyst_agent, self.user_requirements)
         refine_requirements_feasability_task = tasks.refine_requirements_feasability_task(tech_lead_agent,identify_gather_requirements_task)
-        define_story_task = tasks.define_story_task(business_analyst_agent, refine_requirements_feasability_task)
-        define_execution_plan = tasks.define_execution_plan(tech_lead_agent, refine_requirements_feasability_task)
+        # define_story_task = tasks.define_story_task(business_analyst_agent, refine_requirements_feasability_task)
+        # define_execution_plan = tasks.define_execution_plan(tech_lead_agent, refine_requirements_feasability_task)
         define_testing_plan = tasks.define_testing_plan(qa_engineer_agent, refine_requirements_feasability_task)
 
         crew = Crew(
@@ -44,8 +44,8 @@ class DevelopmentCrew:
             tasks=[
                 identify_gather_requirements_task,
                 refine_requirements_feasability_task,
-                define_story_task,
-                define_execution_plan,
+                # define_story_task,
+                # define_execution_plan,
                 define_testing_plan,
             ],
             process=Process.sequential,
