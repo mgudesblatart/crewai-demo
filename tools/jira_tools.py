@@ -17,13 +17,14 @@ class JIRATools():
           'Authorization': JIRA_AUTH_KEY,
           'Content-Type': 'application/json'
         }
-        apiConnection.request("GET", f"/rest/api/3/issue/{issueKey}", headers)
+        apiConnection.request("GET", f"/rest/api/3/issue/{issueKey}", headers=headers)
         res = apiConnection.getresponse()
-        return res
+        data = json.loads(res.read().decode())
+        return data
 
     @tool("Update JIRA ticket")
     def update_ticket(issueKey: str, title: str, description: str) -> str:
-        """Used to update the details for a JIRA ticket, given a Jira Key, a title, and description."""
+        """Used to update the details for a JIRA ticket, given a Jira Key, a title, and description. Simply returns the issue key."""
         print("+++++++++++++++++++++ UPDATING A TICKET ++++++++++++++++++++++++++")
         print(issueKey)
         apiConnection = http.client.HTTPSConnection("connorvalan.atlassian.net")
