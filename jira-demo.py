@@ -46,13 +46,23 @@ testEngineer = Agent(
 
 # Create tasks for your agents
 task1 = Task(
-  description="""Create one JIRA ticket for creating a user profile page""",
+  description="""
+    Create one JIRA ticket for creating a user profile page. 
+    Include a description that clearly and verbosely explains 
+    what problem the ticket aims to solve. Also include 
+    acceptance criteria statements written in a Given, When, 
+    Then format to validate the success of addressing the ticket.
+  """,
   expected_output="id of the created ticket",
   agent=productOwner
 )
 
 task2 = Task(
-  description="""Take the issue created by the product owner and create subtasks for test cases""",
+  description="""
+    Take the ticket created by the product owner and create one subtask 
+    for each Given When Then statement listed in the description of the ticket.  
+    Each subtask must include the Given When Then statement in the description
+  """,
   expected_output="id of the created tickets",
   agent=testEngineer
 )
