@@ -7,9 +7,8 @@ from langchain.tools import tool
 class SearchTools():
 
   @tool("Search the internet")
-  def search_internet(query):
-    """Useful to search the internet
-    about a a given topic and return relevant results"""
+  def search_internet(query: str):
+    """Given a query, this tool will let you search the internet"""
     top_result_to_return = 4
     conn = http.client.HTTPSConnection("google.serper.dev")
     payload = json.dumps({

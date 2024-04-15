@@ -6,10 +6,10 @@ from crewai_tools import tool
 JIRA_AUTH_KEY='Basic Y29ubm9ydmFsYW5AZ21haWwuY29tOkFUQVRUM3hGZkdGMEc4X1dkVXNTVDFFWVB5TnFkUW1zT2l6d2FVWGZIN05FZ0I3Qm5RX2tUX25jZkNQTGoyZkdaWkZjMG4wSmphUVByMXViczR4YkFFNlh3YkxudkV0ZDk0Y0JMMG9CNDkyd1lzY1ZuZ09HakQ0bElydGlzQXhzS2xPUGN4ZXlwQTdyRThJSHZCa25KMlJiOG0wYU5JNl9wUDlzbldzWTFKR0d2UWxTUm1nT3VGOD00RDcyRkY5Mw=='
 
 class JIRATools():
-    
+
     @tool("Get JIRA ticket")
     def get_ticket(issueKey: str) -> str:
-        """Used to retrieve the details for a JIRA ticket"""
+        """Used to retrieve the details for a JIRA ticket, given a Jira Key."""
         print("+++++++++++++++++++++ GETTING A TICKET ++++++++++++++++++++++++++")
         print(issueKey)
         apiConnection = http.client.HTTPSConnection("connorvalan.atlassian.net")
@@ -17,13 +17,13 @@ class JIRATools():
           'Authorization': JIRA_AUTH_KEY,
           'Content-Type': 'application/json'
         }
-        apiConnection.request("GET", "/rest/api/3/issue/"+str(issueKey), headers)
+        apiConnection.request("GET", f"/rest/api/3/issue/{issueKey}", headers)
         res = apiConnection.getresponse()
         return res
 
     @tool("Update JIRA ticket")
     def update_ticket(issueKey: str, title: str, description: str) -> str:
-        """Used to update the details for a JIRA ticket"""
+        """Used to update the details for a JIRA ticket, given a Jira Key, a title, and description."""
         print("+++++++++++++++++++++ UPDATING A TICKET ++++++++++++++++++++++++++")
         print(issueKey)
         apiConnection = http.client.HTTPSConnection("connorvalan.atlassian.net")
@@ -57,13 +57,13 @@ class JIRATools():
           'Authorization': JIRA_AUTH_KEY,
           'Content-Type': 'application/json'
         }
-        apiConnection.request("PUT", "/rest/api/3/issue/"+str(issueKey), payload, headers)
+        apiConnection.request("PUT", f"/rest/api/3/issue/{issueKey}", payload, headers)
         res = apiConnection.getresponse()
         return issueKey
 
     @tool("Create JIRA ticket")
     def create_ticket(title: str, description: str) -> str:
-        """Used to create tickets in JIRA"""
+        """Used to create tickets in JIRA. Responds with a Jira Key that can be used to query the Jira API in the future."""
         print("+++++++++++++++++++++ OPENING A TICKET ++++++++++++++++++++++++++")
         print(title)
         print(description)
@@ -103,10 +103,10 @@ class JIRATools():
         data = json.loads(res.read().decode())
         print(data)
         return data['key']
-    
+
     @tool("Create JIRA subtask")
     def create_subtask(title: str, description: str, parentID: str) -> str:
-        """Used to create subtasks in JIRA"""
+        """Used to create subtasks in JIRA. Requires title, description, and the Jira Key of the parent Story."""
         print("+++++++++++++++++++++ OPENING A SUBTASK ++++++++++++++++++++++++++")
         print(title)
         print(description)
