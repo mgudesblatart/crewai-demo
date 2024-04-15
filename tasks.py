@@ -6,7 +6,7 @@ class Tasks:
     def identify_gather_requirements_task(self, agent, user_requirements):
         return Task(
             description=dedent(
-                f"""
+                f"""\
         Based on the given {user_requirements}, collaborate with the rest of the team to understand and assess any gaps in understanding.
         Create a "Jira Story Ticket" to expand upon the feature request.
         Utilize best practices to define the feature and all of the Acceptance Criteria.
@@ -18,7 +18,7 @@ class Tasks:
         This feature has a large impact on the organization's success. Doing a good job here will lead to promotions and accolades for the team.
       """
             ),
-            expected_output='Jira Ticket ID',
+            expected_output="Jira Ticket ID",
             agent=agent,
             human_input=True,
         )
@@ -26,7 +26,7 @@ class Tasks:
     def refine_requirements_feasability_task(self, agent, context_task):
         return Task(
             description=dedent(
-                f"""
+                f"""\
         Review the requirements set out by the Business Analyst in the "Jira Story Ticket" for development feasibility.
         Identify steps for implementation.
         Append technical thoughts and details onto the "Jira Story Ticket" that will be communicated to the development team.
@@ -39,15 +39,15 @@ class Tasks:
         Ensuring the work-life balance of your developers is important to consider against the impact of the work to the organization as a whole.
       """
             ),
-            expected_ouput="Jira Ticket ID",
+            expected_output="Jira Ticket ID",
             agent=agent,
-            context=[context_task]
+            context=[context_task],
         )
 
     def define_story_task(self, agent, context_task):
         return Task(
             description=dedent(
-                f"""
+                f"""\
         Now that the Tech Lead has had a say on the "Jira Story Ticket", come up with a final draft of the story.
         Use best practices for BDD and the user story template.
         Save the final draft of the story to Jira.
@@ -55,29 +55,29 @@ class Tasks:
         Clean, legible, and actionable Acceptance Criteria reflect well upon your performance.
       """
             ),
-            expected_ouput="Jira Ticket ID",
+            expected_output="Jira Ticket ID",
             agent=agent,
-            context=[context_task]
+            context=[context_task],
         )
 
     def define_execution_plan(self, agent, context_task):
         return Task(
             description=dedent(
-                f"""
+                f"""\
         Come up with the development steps required to achieve the Acceptance Criteria outlined in the "Jira Story Ticket".
         Update the ticket in Jira in the "Technical Details" section.
         Ensure that each step of the technical execution plan has a rough estimate of delivery time.
       """
             ),
-            expected_ouput="Jira Ticket ID",
+            expected_output="Jira Ticket ID",
             agent=agent,
-            context=[context_task]
+            context=[context_task],
         )
 
     def define_testing_plan(self, agent, context_task):
         return Task(
             description=dedent(
-                f"""
+                f"""\
         Review the business requirements and development steps to create a step by step Testing Plan.
         The testing plan will ensure that all of the Acceptance Criteria are met.
         The testing plan will ensure that the code that is produced by the development team satisfies the requirements laid out in the "Jira Story Ticket".
@@ -91,7 +91,7 @@ class Tasks:
         For every bug you find, you get to brag to the tech lead for not having addressed it.
       """
             ),
-            expected_ouput="Jira Ticket ID",
+            expected_output="Jira Ticket ID",
             agent=agent,
-            context=[context_task]
+            context=[context_task],
         )
