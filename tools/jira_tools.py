@@ -57,9 +57,9 @@ class JIRATools():
           'Authorization': JIRA_AUTH_KEY,
           'Content-Type': 'application/json'
         }
-        apiConnection.request("PUT", "/rest/api/3/issue/{issueKey}", payload, headers)
+        apiConnection.request("PUT", "/rest/api/3/issue/"+str(issueKey), payload, headers)
         res = apiConnection.getresponse()
-        return res
+        return issueKey
 
     @tool("Create JIRA ticket")
     def create_ticket(title: str, description: str) -> str:
