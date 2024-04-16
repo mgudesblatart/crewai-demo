@@ -1,0 +1,1 @@
+pip install pyjwt pycryptodomex py pluggy outcome nodeenv mutagen iniconfig deprecation yt_dlp youtube-transcript-api trio retry pytest pyright pynacl pylance trio-websocket lancedb selenium PyGithub crewai_tools --no-deps

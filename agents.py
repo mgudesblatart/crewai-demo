@@ -32,7 +32,7 @@ class Agents:
             tools=[self.jira_tools.create_ticket],
             allow_delegation=False,
             verbose=True,
-            llm=self.OpenAIGPT35,
+            llm=self.OpenAIGPT4,
         )
 
     def tech_lead_agent(self):
@@ -55,7 +55,7 @@ class Agents:
             tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
             allow_delegation=False,
             verbose=True,
-            llm=self.OpenAIGPT35,
+            llm=self.OpenAIGPT4,
         )
 
     def qa_engineeer_agent(self):
@@ -77,5 +77,5 @@ class Agents:
             tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.jira_tools.create_subtask],
             allow_delegation=False,
             verbose=True,
-            llm=self.OpenAIGPT35,
+            llm=self.OpenAIGPT4,
         )

@@ -49,7 +49,7 @@ class DevelopmentCrew:
                 define_testing_plan,
             ],
             process=Process.sequential,
-            memory=False,
+            memory=True,
             cache=False,
             # manager_llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7),
             verbose=1,  # You can set it to 1 or 2 to different logging levels
