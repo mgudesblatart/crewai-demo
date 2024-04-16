@@ -11,3 +11,5 @@ In addition to our expansive range of pantry essentials, EuroDelights also offer
 As a wholesale destination, EuroDelights caters not only to discerning individuals but also to businesses seeking to elevate their offerings with the distinctive allure of European cuisine. From boutique cafes to upscale restaurants, our wholesale division provides access to bulk quantities of premium European goods, ensuring that your establishment stands out in a crowded market.
 
 Whether you're stocking your shelves, preparing a sumptuous feast, or simply indulging in a moment of culinary inspiration, EuroDelights Wholesale Grocery invites you to embark on a journey through the flavors of Europe, where every bite tells a story of tradition, passion, and unparalleled quality.
+
+Create a user profile page that has name, email, phone and address as input for a wholesale grocery store with online store.   
