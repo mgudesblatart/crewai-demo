@@ -1,10 +1,14 @@
 from textwrap import dedent
 from crewai import Task
 from tools.jira_tools import JIRATools
+from crewai_tools import WebsiteSearchTool, TXTSearchTool
 
 class Tasks:
     def __init__(self):
         self.jira_tools = JIRATools()
+        self.storyTemplateTool = WebsiteSearchTool(website='https://www.jira-templates.com/issues/story-template')
+        self.contextTool = TXTSearchTool(txt='company.txt')
+
 
     def identify_gather_requirements_task(self, agent, user_requirements):
         return Task(
@@ -12,13 +16,13 @@ class Tasks:
                 f"""\
         Based on the given {user_requirements}, create a "Jira Ticket" to implement the feature request.
         The ticket description should include the expected value this will bring to the users.
-        The ticket description should include detailed acceptance critera in a numbered list.
+        The ticket description should create the story using the "Story template tool".
       """
             ),
             expected_output="JIRA key of created ticket",
             agent=agent,
             # human_input=True,
-            tools=[self.jira_tools.create_ticket],
+            tools=[self.jira_tools.create_ticket, self.storyTemplateTool, self.contextTool],
         )
 
     def refine_requirements_feasability_task(self, agent, context_task):
@@ -35,7 +39,7 @@ class Tasks:
             expected_output="JIRA key of updated ticket",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.storyTemplateTool],
         )
 
     def define_story_task(self, agent, context_task):
@@ -52,7 +56,7 @@ class Tasks:
             expected_output="JIRA key of updated ticket",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.storyTemplateTool],
         )
 
     def define_execution_plan(self, agent, context_task):
@@ -68,7 +72,7 @@ class Tasks:
             expected_output="JIRA key of updated ticket",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.storyTemplateTool],
         )
 
     def define_testing_plan(self, agent, context_task):
@@ -82,5 +86,5 @@ class Tasks:
             expected_output="Jira keys of the new created subtasks",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.create_subtask],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.create_subtask, self.storyTemplateTool],
         )

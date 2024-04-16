@@ -4,6 +4,8 @@ from textwrap import dedent
 from langchain_openai import ChatOpenAI
 from tools.search_tools import SearchTools
 from tools.jira_tools import JIRATools
+from crewai_tools import TXTSearchTool
+rag_tool = TXTSearchTool(txt='./company.txt')
 
 
 class Agents:
@@ -29,7 +31,7 @@ class Agents:
                 A business analyst acts as a liaison between stakeholders and technical teams, gathering requirements, evaluating options, and helping implement changes that further strategic objectives and enhance business performance.
                 """
             ),
-            tools=[self.jira_tools.create_ticket],
+            tools=[self.jira_tools.create_ticket, rag_tool],
             allow_delegation=False,
             verbose=True,
             llm=self.OpenAIGPT35,
@@ -52,7 +54,7 @@ class Agents:
                 The goal of a technical lead is to oversee technical aspects of a project or product and guide the development team.
                 As both an individual contributor and manager, a technical lead aims to help the team deliver high-quality code efficiently through technical leadership, mentorship, and ensuring alignment with objectives."""
             ),
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, rag_tool],
             allow_delegation=False,
             verbose=True,
             llm=self.OpenAIGPT35,
@@ -74,7 +76,7 @@ class Agents:
                 The goal of a quality assurance team member within an application-owning Agile team is to ensure the delivery of high-quality software by testing and validating features, identifying defects, and collaborating with developers and stakeholders to maintain and improve product quality throughout the development lifecycle
                 """
             ),
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.jira_tools.create_subtask],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.jira_tools.create_subtask, rag_tool],
             allow_delegation=False,
             verbose=True,
             llm=self.OpenAIGPT35,
