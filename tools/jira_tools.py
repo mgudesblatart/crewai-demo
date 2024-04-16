@@ -9,7 +9,7 @@ class JIRATools():
 
     @tool("Get JIRA ticket")
     def get_ticket(issueKey: str) -> str:
-        """Used to retrieve the details for a JIRA ticket, given a Jira Key."""
+        """Used to retrieve the details for a JIRA ticket, given a Jira Key. Returns the description of the ticket"""
         print("+++++++++++++++++++++ GETTING A TICKET ++++++++++++++++++++++++++")
         print(issueKey)
         apiConnection = http.client.HTTPSConnection("connorvalan.atlassian.net")
@@ -20,10 +20,11 @@ class JIRATools():
         apiConnection.request("GET", f"/rest/api/3/issue/{issueKey}", headers=headers)
         res = apiConnection.getresponse()
         data = json.loads(res.read().decode())
-        return data
+        print(data['fields']['description'])
+        return data['fields']['description']
 
     @tool("Update JIRA ticket")
-    def update_ticket(issueKey: str, title: str, description: str) -> str:
+    def update_ticket(issueKey: str, description: str) -> str:
         """Used to update the details for a JIRA ticket, given a Jira Key, a title, and description. Simply returns the issue key."""
         print("+++++++++++++++++++++ UPDATING A TICKET ++++++++++++++++++++++++++")
         print(issueKey)
@@ -33,7 +34,6 @@ class JIRATools():
             "project": {
               "key": "KAN"
             },
-            "summary": title,
             "description": {
               "type": "doc",
               "version": 1,
@@ -49,9 +49,6 @@ class JIRATools():
                 }
               ]
             },
-            "issuetype": {
-              "name": "Task"
-            }
           }
         })
         headers = {
