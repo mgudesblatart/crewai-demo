@@ -17,6 +17,7 @@ class Tasks:
         self.directory_tool = DirectoryReadTool(relative_path)
         self.text_tool = TXTSearchTool(txt=os.path.join(relative_path, 'jiraTemplate.txt'))
         # self.website_tool = WebsiteSearchTool(website="https://www.jira-templates.com/issues/story-template")
+        self.website_tool = TXTSearchTool(txt=os.path.join(relative_path, 'company.txt'))
 
     def identify_gather_requirements_task(self, agent, user_requirements):
         return Task(
@@ -31,7 +32,7 @@ class Tasks:
             expected_output="JIRA ticket key",
             agent=agent,
             # human_input=True,
-            tools=[self.jira_tools.create_ticket, self.text_tool],
+            tools=[self.jira_tools.create_ticket, self.text_tool, self.website_tool],
         )
 
     def refine_requirements_feasability_task(self, agent, context_task):
@@ -48,7 +49,7 @@ class Tasks:
             expected_output="JIRA ticket key",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.website_tool],
         )
 
     def define_story_task(self, agent, context_task):
@@ -65,7 +66,7 @@ class Tasks:
             expected_output="JIRA key of updated ticket",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.website_tool],
         )
 
     def define_execution_plan(self, agent, context_task):
@@ -81,7 +82,7 @@ class Tasks:
             expected_output="JIRA key of updated ticket",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket, self.website_tool],
         )
 
     def define_testing_plan(self, agent, context_task):
@@ -95,5 +96,5 @@ class Tasks:
             expected_output="Jira keys of the new created subtasks",
             agent=agent,
             context=[context_task],
-            tools=[self.jira_tools.get_ticket, self.jira_tools.create_subtask],
+            tools=[self.jira_tools.get_ticket, self.jira_tools.create_subtask, self.website_tool],
         )
