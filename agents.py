@@ -3,7 +3,6 @@ from textwrap import dedent
 from langchain_openai import ChatOpenAI
 from tools.search_tools import SearchTools
 from tools.jira_tools import JIRATools
-from crewai_tools import TXTSearchTool
 
 
 class Agents:
