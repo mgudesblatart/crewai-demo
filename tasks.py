@@ -45,7 +45,7 @@ class Tasks:
         Do NOT overwrite what was there previously.
       """
             ),
-            expected_output="JIRA key of updated ticket",
+            expected_output="JIRA ticket key",
             agent=agent,
             context=[context_task],
             tools=[self.jira_tools.get_ticket, self.jira_tools.update_ticket],
